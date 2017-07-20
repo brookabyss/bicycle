@@ -1,0 +1,87 @@
+<h1><a [routerLink]="['/browse']">Browse</a> | <a [routerLink]="['/listings']">My Listings</a> | <a href="/users/logout">LogOff</a> | </h1>
+<form #listingForm="ngForm" (submit)="onSubmit()">
+  <label for="image">Image Url:  </label>
+  <input 
+    type="text"
+    name="image"
+    required 
+    [(ngModel)]="listing.avatar"
+    #image="ngModel"
+    ><br>
+  <label for="title">Title</label><br>
+  <input 
+    required
+    name="title"
+    type="text"
+    [(ngModel)]="listing.title"
+    #title="ngModel">
+  <label for="title">Price: </label>
+  <input 
+    required
+    type="number"
+    name="price"
+    [(ngModel)]="listing.price"
+    #price="ngModel"><br>
+  <label for="titel">Description</label><br>
+  <textarea 
+    name="description" 
+    type="text"
+    cols="30" 
+    rows="10"
+    required
+    maxlength="200"
+    [(ngModel)]="listing.description"
+    #description="ngModel">
+  </textarea>
+
+  <label for="titel">Location</label>
+   <input type="text" name="location" required [(ngModel)]="listing.location"
+    #location="ngModel">
+    <button [disabled]="!listingForm.form.valid">Create</button>
+</form>
+
+
+<div *ngFor="let list of listings">
+  <p>{{list.creator_id|json}}</p>
+  <form #listingForm="ngForm" >
+  <img class="bikeImage" [src]="list.bike_img" alt="">
+  <label for="image">Image Url:  </label>
+  <input 
+    type="text"
+    name="image"
+    required 
+    [(ngModel)]="list.bike_img"
+    #image="ngModel"
+    ><br>
+  <label for="title">Title</label><br>
+  <input 
+    required
+    name="title"
+    type="text"
+    [(ngModel)]="list.title"
+    #title="ngModel">
+  <label for="title">Price: </label>
+  <input 
+    required
+    type="number"
+    name="price"
+    [(ngModel)]="list.price"
+    #price="ngModel"><br>
+  <label for="titel">Description</label><br>
+  <textarea 
+    name="description" 
+    type="text"
+    cols="30" 
+    rows="10"
+    required
+    maxlength="200"
+    [(ngModel)]="list.description"
+    #description="ngModel">
+  </textarea>
+  <label for="location">Location</label>
+   <input type="text" name="location" required [(ngModel)]="list.location"
+    #location="ngModel">
+   <button [disabled]="!listingForm.form.valid" (click)="deleteListing()">Update</button>
+   <button [disabled]="!listingForm.form.valid" (click)="deleteListing()">Delete</button>
+   </form>
+</div>

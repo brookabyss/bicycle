@@ -1,0 +1,28 @@
+
+<h1>Login</h1>
+<p *ngIf="error_message">{{error_message}}</p>
+  <form name="user_form" #user_form="ngForm" (submit)="onSubmit()" novalidate>
+    <label for="email">*Email: </label>
+    <input 
+      type="email" 
+      required ="true" 
+      ng-pattern="emailFormat" 
+      name="email" 
+      [(ngModel)]="user.email" 
+      #email="ngModel"><p 
+      *ngIf="!email.valid&&email.touched" 
+      class="error"> Invalid email pattern</p><br>
+    <label for="password">*Password  </label>
+    <input 
+      type="password" 
+      name="password" 
+      required ="true"
+      minlength="3" 
+      [(ngModel)]="user.password"
+      #password="ngModel"><p 
+      *ngIf="(!password.valid&&password.touched)" 
+      class="error">Password needs to be at least 16 characters in length</p><br>
+    <input type="submit"  name="btn" value="Login" [disabled]="!user_form.form.valid" >
+  </form>
+
+

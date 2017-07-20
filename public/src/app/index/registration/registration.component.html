@@ -1,0 +1,59 @@
+<h1>Registration</h1>
+<div>
+  <h3>Account Information</h3>
+  <div class="welcome_message" *ngIf="status">
+    <p>Thank you for registering with us {{user.name}}. We just sent you a confirmation email at {{user.email}} , and we will send all mail to {{user.street}},{{user.city}},{{user.state}}. Have a blessed day!</p>
+  </div>
+  <form name="user_form" #user_form="ngForm" (submit)="onSubmit()" novalidate>
+    <label for="first_name">*First Name</label>
+    <input 
+      type="text" name="first_name" 
+      required ="true"
+      minlength="4" 
+      [(ngModel)]="user.name.first" 
+      #first_name="ngModel"><p 
+      *ngIf="!first_name.valid&&first_name.touched" 
+      class="error"> First name should be at least four characters in length.</p><br>
+    <label for="last_name">*Last Name</label>
+    <input 
+      type="text" name="last_name" 
+      required ="true"
+      minlength="4" 
+      [(ngModel)]="user.name.last" 
+      #last_name="ngModel"><p 
+      *ngIf="!last_name.valid&&last_name.touched" 
+      class="error">Last name should be at least four characters in length.</p><br>
+    <label for="email">*Email</label>
+    <input 
+      type="email" 
+      required ="true" 
+      ng-pattern="emailFormat" 
+      name="email" 
+      [(ngModel)]="user.email" 
+      #email="ngModel"><p 
+      *ngIf="!email.valid&&email.touched" 
+      class="error"> Invalid email pattern</p><br>
+    <label for="password">*Password  </label>
+    <input 
+      type="password" 
+      name="password" 
+      required ="true"
+      minlength="3" 
+      [(ngModel)]="user.password"
+      #password="ngModel"><p 
+      *ngIf="(!password.valid&&password.touched)" 
+      class="error">Password needs to be at least 16 characters in length</p><br>
+    <label for="confirm">Password Confirmation  </label>
+    <input 
+      type="password" 
+      name="confirm" 
+      required ="true"
+      [(ngModel)]="password_confirm"
+      #confirm="ngModel"><p 
+      *ngIf="(match_password()&&confirm.touched)" 
+      class="error">Password confirmation doesn't match</p><br>
+    <input type="submit"  name="btn" value="Register" [disabled]="!user_form.form.valid" >
+        
+  </form>
+</div>
+
