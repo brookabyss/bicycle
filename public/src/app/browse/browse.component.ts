@@ -11,45 +11,53 @@ export class BrowseComponent implements OnDestroy {
   user={}
   susbcription: Subscription
   // l_sub: Subscription
+  current_user_id: String;
   listings=[]
   constructor(private _router: Router, private _httpService: HttpService) { 
+    console.log("why not inside 1")
     this._httpService.get_logged_in_user()
     .then(data=> {
       if (data){
+        console.log("why not inside 2")
         console.log(data)
-        this.susbcription=this._httpService.observedUser.subscribe(
+        this.current_user_id=data;
+        console.log("current user", this.current_user_id)
+       this.susbcription= this._httpService.observedUser.subscribe(
         user=> {
           console.log("Subscribed users from registration",user);
           this.user=user
+          
         },
         (err)=> console.log(err),
         ()=>{}
       )
-    
       }
       else{
         this._router.navigate(['/'])
       }
     })
     .catch(err=> console.log(err))
-
-  }
-
-  ngOnInit() {
-   this._httpService.get_listings()
+    this._httpService.get_listings()
     .then(listings=> {
-      console.log("listing retrieval",listings[0]._creator_id)
+      console.log("listing retrieval",listings)
       this.listings=listings 
       console.log("the creator id is ",listings[0]['creator_id'])
       this._httpService.updateListings(this.listings)      
   })
     .catch(err=> console.log("listing retrieval error",err))
     console.log("the listing is ",this.listings)
+
+  }
+
+  ngOnInit() {
+   
   }
   ngOnDestroy(){
     this.susbcription.unsubscribe()
     // this.l_sub.unsubscribe()
     
   }
-
+  contact(){
+    alert("Hello it's Brook")
+}
 }

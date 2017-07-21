@@ -4,7 +4,7 @@
   <h1>{{list.title}}</h1>
   <p>{{list.description}}</p>
     <h1>$ {{list.price}}</h1>
-    <button *ngIf="user._id==list._creator_id">Delete</button>
-    <button *ngIf="user._id==list._creator_id" (click)="contact()">Contact</button>
+    <button *ngIf="current_user_id==list._creator_id">Delete</button>
+    <button *ngIf="current_user_id!=list._creator_id" (click)="contact()">Contact</button>
 </div>
   
