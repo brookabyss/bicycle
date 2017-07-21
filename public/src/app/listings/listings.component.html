@@ -42,8 +42,7 @@
 
 
 <div *ngFor="let list of listings">
-  <p>{{list.creator_id|json}}</p>
-  <form #listingForm="ngForm" >
+  <form #listingForm="ngForm" *ngIf="list._creator_id===current_user_id">
   <img class="bikeImage" [src]="list.bike_img" alt="">
   <label for="image">Image Url:  </label>
   <input 
@@ -81,7 +80,8 @@
   <label for="location">Location</label>
    <input type="text" name="location" required [(ngModel)]="list.location"
     #location="ngModel">
-   <button [disabled]="!listingForm.form.valid" (click)="deleteListing()">Update</button>
-   <button [disabled]="!listingForm.form.valid" (click)="deleteListing()">Delete</button>
+   <button [disabled]="!listingForm.form.valid" (click)="updateListing(list)">Update</button>
+   <button [disabled]="!listingForm.form.valid" (click)="deleteListing(list._id)">Delete</button>
    </form>
+ <p> {{list._creator_id.email|json}}</p>
 </div>

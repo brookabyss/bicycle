@@ -1,1 +1,10 @@
 <h1><a [routerLink]="['/browse']">Browse</a> | <a [routerLink]="['/listings']">My Listings</a> | <a href="/users/logout">LogOff</a> | </h1>
+<div *ngFor="let list of listings">
+  <img class="bikeImage" [src]="list.bike_img" alt="">
+  <h1>{{list.title}}</h1>
+  <p>{{list.description}}</p>
+    <h1>$ {{list.price}}</h1>
+    <button *ngIf="user._id==list._creator_id">Delete</button>
+    <button *ngIf="user._id==list._creator_id" (click)="contact()">Contact</button>
+</div>
+  

@@ -38,6 +38,21 @@ export class HttpService {
     return this._http.post('/listings/new', lisitng).map(data=>data.json()).toPromise()
 
   }
+  get_listings(){
+    console.log("$%$%T^$%^$^$^$%^$")
+    return this._http.get('/get_all_listings').map(data=>data.json()).toPromise()
+  }
+
+  updateList(list){
+    console.log("Update Listing in the service",list)
+    return this._http.post('/listings/edit',list).map(data=>data.json()).toPromise()
+
+  }
+  deleteList(_id){
+    console.log("About to delete in service",{id:_id})
+    return this._http.post('/listings/delete',{id:_id}).map(data=>data.json()).toPromise()
+
+  }
 
 
 }

@@ -23,6 +23,17 @@ module.exports= function(app){
    app.post('/listings/new', function(req, res, next) {
     listings.create_listing(req,res)
   })
+  app.post('/listings/edit', function(req, res, next) {
+    listings.update_listing(req,res)
+  })
+  app.post('/listings/delete', function(req, res, next) {
+    console.log("Routes delete the listings", req.body)
+    listings.delete_listing(req,res)
+  })
+  app.get("/get_all_listings",function(req, res, next) {
+    listings.get_listings(req,res)
+  })
+
 
   app.all("*", (req,res,next) => {
         res.sendfile(path.resolve("./public/dist/index.html"))

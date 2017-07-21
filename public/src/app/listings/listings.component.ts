@@ -34,6 +34,16 @@ export class ListingsComponent implements OnInit {
       }
     })
     .catch(err=> console.log(err))
+    this._httpService.get_listings()
+    .then(listings=> {
+      console.log("listing retrieval",listings[0]._creator_id)
+      this.listings=listings 
+      console.log("the creator id is ",listings[0]['creator_id'])
+      this.listing=new Listing
+      this._httpService.updateListings(this.listings)      
+  })
+    .catch(err=> console.log("listing retrieval error",err))
+    console.log("constructor listings at the beginning",this.listings)
 
   }
 
@@ -46,10 +56,30 @@ export class ListingsComponent implements OnInit {
     .then(listings=> {
       console.log("listing creation",listings)
       this.listings=listings 
+      console.log("the creator id is ",listings[0]['creator_id'])
       this.listing=new Listing
-      this._httpService.updateListings(listings)      
+      this._httpService.updateListings(this.listings)      
   })
     .catch(err=> console.log("listing creation error",err))
   }
+  updateListing(list){
+    console.log(list)
+    this._httpService.updateList(list)
+    .then(data=> {
+      this.listings=data
+      this._httpService.updateListings(this.listings)
+    })
+    .catch(err=> console.log(err))
+  }
+   deleteListing(listing_id){
+     console.log(listing_id)
+    this._httpService.deleteList(listing_id)
+    .then(data=> {
+      this.listings=data
+      this._httpService.updateListings(this.listings)
+    })
+    .catch(err=> console.log(err))
+  }
+  }
 
-}
+
